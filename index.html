@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title>Angular practice</title>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script> -->
+ 	<script src="angular-1.4.0/angular.min.js"></script>
+ 	<script src="index.js"></script>
+ 	<style>
+ 	    table th{
+ 	    	border: 1px solid #5599FF;
+ 	    	margin:0;
+ 	    	padding:10px;
+ 	    	font-family: arial;
+ 	    }
+ 	    table{
+ 	    	border-collapse: collapse;
+ 	    }
+ 	    form input{
+ 	    	display:block;
+ 	    }
+ 	    a{
+ 	    	text-decoration: none;
+ 	    	color:blue;
+ 	    }
+ 	</style>
+</head>
+
+<body ng-controller="sampleController as con " ng-init="array=[1,2,3,4,5]">
+	
+
+
+    <section ng-hide="true" ng-repeat="person in this.array">
+        <h5 >{{ person }}</h5>
+        <hr>
+    </section >
+
+    <div style="width:100%;display:block;">
+	    <div style="width:50%;margin:10px auto; display:block">
+	    	<div style="padding:15px;">
+		        <input type="text" ng-model="con.searchStr" /> 
+				<input type="number" ng-model="con.limit" />
+			</div>
+		    <table style="width:100%;">
+		        <tr>
+		        	<th>No.</th>
+		        	<th><a href="" ng-click="con.sort('name')">Name</a></th>
+		        	<th><a href="" ng-click="con.sort('age')">Age</a></th>
+		        	<th><a href="" ng-click="con.sort('loaction')">Location</a></th>
+		        </tr>
+		        <tr ng-repeat="person in con.person  | filter:con.searchStr | orderBy:con.sortProperty:con.reverseSort | limitTo:con.limit ">
+		            <th>{{ $index + 1 }}</th>
+		            <th>{{ person.name }}</th>
+					<th>{{ person.age }}</th>
+					<th>{{ person.location }}</th>
+
+		        </tr>
+		    </table>
+		    <div style="width:inherit;margin:0 auto;display:block">
+			    <form ng-submit="con.addPerson()">
+			        Name: <input type="text" ng-model="con.newData.name" />
+			        Age: <input type="number" ng-model="con.newData.age" />
+			        Location: <input type="text" ng-model="con.newData.location" />
+			        <input type="submit" />
+			    </form>
+		    </div>
+	    </div>
+    </div>
+</body>
+</html>
